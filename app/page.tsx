@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
 import Node from "@/components/Node";
 import { Button } from "@/components/ui/button";
@@ -90,7 +91,7 @@ export default function Home() {
   };
 
   const handlePass = () => {
-    if (moveHistory[moveHistory.length - 1]?.x === "p") {
+    if (moveHistory[moveHistory.length - 1]?.x === "p" && moveHistory[moveHistory.length - 2]?.x === "p") {
       setIsGameOver(true);
     }
     setMoveHistory([...moveHistory, { x: "p", y: 0 }]);
@@ -102,7 +103,7 @@ export default function Home() {
     for (let j = -1; j < 9; j++) {
       nodeArray.push(
         i === 9 || j === -1 ? (
-          <div key={`${i}-${j}`} className="w-20 h-20 pl-8 pt-8">
+          <div key={`${i}-${j}`} className="invisible lg:visible w-20 h-20 pl-8 pt-8">
             <span>{i === 9 ? (j === -1 ? "" : getLetterForIndex(j)) : getIndexFromIndex(i)}</span>
           </div>
         ) : (
@@ -123,11 +124,12 @@ export default function Home() {
   }
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 lg:gap-16 lg:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="flex flex-col lg:gap-[32px] row-start-2 items-center sm:items-start mr-7 lg:mr-0">
         <div className="flex flex-row">
-          <div className="grid grid-cols-10 grid-rows-10">{nodeArray}</div>
-          <div className="p-4 font-mono whitespace-pre-wrap min-w-48">
+          <div className="grid grid-cols-10 grid-rows-10  aspect-square">{nodeArray}</div>
+
+          <div className="hidden lg:block p-4 font-mono whitespace-pre-wrap min-w-48">
             {moveHistory.map((item, index) => {
               const order = 1 + Math.floor(index / 2);
               const maxLength = (moveHistory.length + 1).toString().length;
