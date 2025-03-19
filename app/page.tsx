@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
 import Node from "@/components/Node";
 import { Button } from "@/components/ui/button";
