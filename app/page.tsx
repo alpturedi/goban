@@ -33,7 +33,6 @@ function canBreathe(board: Array<null | "b" | "w">[], x: number, y: number, path
 }
 
 function checkCapture(board: Array<null | "b" | "w">[]) {
-  let result = false;
   const checked = Array(9)
     .fill(false)
     .map(() => Array(9).fill(false));
@@ -47,7 +46,6 @@ function checkCapture(board: Array<null | "b" | "w">[]) {
           path.forEach((item) => {
             board[item.x][item.y] = null;
           });
-          result = true;
         }
         path.forEach((item) => {
           checked[item.x][item.y] = true;
@@ -57,7 +55,6 @@ function checkCapture(board: Array<null | "b" | "w">[]) {
       }
     }
   }
-  return result;
 }
 
 function getLetterForIndex(index: number) {
@@ -79,11 +76,12 @@ export default function Home() {
   const [isGameOver, setIsGameOver] = useState(false);
 
   const handleClick = (x: number, y: number) => {
-    const newBoard = Array.from(board);
+    const newBoard = board.map((item) => [...item]);
     newBoard[x][y] = isBlacksTurn ? "b" : "w";
-    if (checkCapture(newBoard) === true) {
+    if (!canBreathe(newBoard, x, y, [], isBlacksTurn ? "b" : "w")) {
       return;
     }
+    checkCapture(newBoard);
     setMoveHistory([...moveHistory, { x, y }]);
     setIsBlacksTurn(!isBlacksTurn);
     setBoard(newBoard);
