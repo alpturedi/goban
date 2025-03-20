@@ -5,7 +5,7 @@ export default function Node({ onClick, state, turn, title }: { onClick: () => v
     <div onClick={onClick} className="bg-black dark:bg-white grid grid-cols-2 grid-rows-2 gap-2 relative" title={title}>
       <div
         className={cn(
-          "absolute rounded-full inset-2 z-10 border-4 border-transparent ",
+          "absolute rounded-full inset-1 lg:inset-2 z-10 border-4 border-transparent",
           state === "b" && "bg-black border-gray-800",
           state === "w" && "bg-white border-gray-200",
           turn === "w" && !state && "hover:opacity-70 hover:border-gray-200 hover:bg-white transition-all",
